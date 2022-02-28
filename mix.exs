@@ -20,7 +20,7 @@ defmodule NotionHelpers.MixProject do
   def application do
     [
       mod: {NotionHelpers.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :oauth2]
     ]
   end
 
@@ -50,7 +50,9 @@ defmodule NotionHelpers.MixProject do
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:thin_notion_api, "~> 1.0.0"}
+      {:thin_notion_api, "~> 1.0.0"},
+      {:ueberauth, "~> 0.7"},
+      {:oauth2, "~> 2.0"}
     ]
   end
 

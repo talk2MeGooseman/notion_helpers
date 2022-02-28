@@ -48,7 +48,20 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :thin_notion_api, :api_key, System.get_env("NOTION_API_KEY")
+config :thin_notion_api, :client_id, System.get_env("NOTION_CLIENT_ID")
 config :thin_notion_api, :notion_version, "2021-08-16"
+
+config :ueberauth, Ueberauth.Strategy.Notion.OAuth,
+  client_id: System.get_env("NOTION_CLIENT_ID"),
+  client_secret: System.get_env("NOTION_CLIENT_SECRET"),
+  redirect_uri: "http://localhost:4000/auth/notion/callback"
+
+config :ueberauth, Ueberauth,
+  providers: [
+    notion: { Ueberauth.Strategy.Notion, [] },
+  ]
+
+config :oauth2, debug: true
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

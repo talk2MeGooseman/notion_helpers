@@ -17,6 +17,10 @@ defmodule NotionHelpersWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Ueberauth
+  end
+
   scope "/", NotionHelpersWeb do
     pipe_through :browser
 
@@ -87,5 +91,12 @@ defmodule NotionHelpersWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+  end
+
+  scope "/auth", NotionHelpersWeb do
+    pipe_through [:browser, :auth]
+
+    get "/:provider", UserSessionController, :request
+    get "/:provider/callback", UserSessionController, :callback
   end
 end
