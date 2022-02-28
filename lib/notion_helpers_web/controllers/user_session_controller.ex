@@ -4,8 +4,6 @@ defmodule NotionHelpersWeb.UserSessionController do
   alias NotionHelpers.Accounts
   alias NotionHelpersWeb.UserAuth
 
-  plug Ueberauth
-
   alias Ueberauth.Strategy.Helpers
 
   def new(conn, _params) do
@@ -43,7 +41,7 @@ defmodule NotionHelpersWeb.UserSessionController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    IO.inspect("CALLBACK")
+    IO.inspect(auth)
 
     conn
     |> redirect(to: "/")
