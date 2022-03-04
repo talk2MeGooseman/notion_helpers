@@ -63,6 +63,13 @@ defmodule Ueberauth.Strategy.Notion.OAuth do
     |> OAuth2.Client.authorize_url!(params)
   end
 
+  def get(token, url, headers \\ [{"Notion-Version", "2022-02-22"}], opts \\ []) do
+    [token: token]
+    |> client
+    |> put_param("access_token", token)
+    |> OAuth2.Client.get(url, headers, opts)
+  end
+
   def get_token!(params \\ [], options \\ []) do
     headers = Keyword.get(options, :headers, [])
     options = Keyword.get(options, :options, [])

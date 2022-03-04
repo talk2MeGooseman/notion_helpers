@@ -66,16 +66,13 @@ defmodule Ueberauth.Strategy.Notion do
     token = conn.private.notion_token
 
     %Credentials{
-      token: token.access_token,
+      token: token.access_token
     }
   end
 
-  @doc """
-  Fetches the fields to populate the info section of the `Ueberauth.Auth`
-  struct.
-  """
-  def info(_conn) do
-    %Info{}
+  def uid(conn) do
+    Map.from_struct(conn.private.notion_token)
+    |> get_in([:other_params, "bot_id"])
   end
 
   @doc """
